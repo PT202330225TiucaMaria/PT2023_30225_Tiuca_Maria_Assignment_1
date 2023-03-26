@@ -3,9 +3,8 @@ import Functions.Functions;
 import java.util.Scanner;
 
 public class Main {
-
     public static void main( String[] args ) {
-       // new GUI.GUI();
+       // new GUI();
         Scanner scan = new Scanner(System.in);
         String Pol1 = scan.nextLine();
         String Pol2 = scan.nextLine();

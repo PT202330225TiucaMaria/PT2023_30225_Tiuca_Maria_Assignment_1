@@ -11,8 +11,9 @@ public class Functions {
             if (Rez.getTermeni().containsKey(PutereP2)) {
                 Rez.getTermeni().put(PutereP2, Rez.getTermeni().get(PutereP2) + P2.getTermeni().get(PutereP2));
             } else
-                Rez.getTermeni().put(PutereP2, Rez.getTermeni().get(PutereP2));
+                Rez.getTermeni().put(PutereP2, P2.getTermeni().get(PutereP2));
         }
+        System.out.println(Rez.getTermeni());
         return Rez;
     }
 }
