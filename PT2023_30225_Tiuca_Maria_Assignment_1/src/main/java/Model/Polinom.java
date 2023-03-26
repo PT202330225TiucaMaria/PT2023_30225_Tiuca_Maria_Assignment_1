@@ -3,88 +3,84 @@ package Model;
 import java.util.*;
 import java.util.regex.*;
 public class Polinom {
-
     private HashMap<Integer, Double>Termeni;
-
     public Polinom(){
         Termeni = new HashMap<>();
     }
-
     public Polinom(String Pol) {
         Termeni = new HashMap<>();
-        String PlusMinus = Pol.replace("-", "+-");
+        String plusMinus = Pol.replace("-", "+-");
         Pattern pattern = Pattern.compile("([+-]?[^-+]+)");
-        Matcher matcher = pattern.matcher(PlusMinus);
+        Matcher matcher = pattern.matcher(plusMinus);
         while(matcher.find()){
-            String Monom =matcher.group();
-            String[] Coef = Monom.split("([*a-zA-Z^])");
-            if (Coef.length == 4) {
-                Termeni.put(Integer.valueOf(Coef[3]), Double.valueOf(Coef[0]));
+            String monom =matcher.group();
+            String[] coef = monom.split("([*a-zA-Z^])");
+            if (coef.length == 4) {
+                Termeni.put(Integer.valueOf(coef[3]), Double.valueOf(coef[0]));
             }
-            if (Coef.length == 3) {
-                if (Coef[0].equals("-"))
-                    Termeni.put(Integer.valueOf(Coef[2]), (double) -1);
+            if (coef.length == 3) {
+                if (coef[0].equals("-"))
+                    Termeni.put(Integer.valueOf(coef[2]), (double) -1);
                 else
-                    Termeni.put(Integer.valueOf(Coef[2]), 1.0);
+                    Termeni.put(Integer.valueOf(coef[2]), 1.0);
             }
-            if (Coef.length == 1) {
-                if (Coef[0].equals("")) continue;
+            if (coef.length == 1) {
+                if (coef[0].equals("")) continue;
                 else {
-                    char c = Monom.charAt(Monom.length()-1);
-                    if (c == 'x'&&!(Coef[0].equals("-"))&&!(Coef[0].equals("+"))) {
-                        Termeni.put(1,Double.valueOf(Coef[0]));
+                    char c = monom.charAt(monom.length()-1);
+                    if (c == 'x'&&!(coef[0].equals("-"))&&!(coef[0].equals("+"))) {
+                        Termeni.put(1,Double.valueOf(coef[0]));
                     } else {
-                        if (Coef[0].equals("-"))
+                        if (coef[0].equals("-"))
                             Termeni.put(1, (double) -1);
                         else {
-                            if (Coef[0].equals("+"))
+                            if (coef[0].equals("+"))
                                 Termeni.put(1, (double) 1);
                             else
-                                Termeni.put(0, Double.valueOf(Coef[0]));
+                                Termeni.put(0, Double.valueOf(coef[0]));
                         }
                     }
                 }
             }
-            if (Coef.length == 0)
+            if (coef.length == 0)
                     Termeni.put(1, (double) 1);
         }
-        System.out.println(Termeni);
     }
     public HashMap<Integer, Double> getTermeni() {
         return Termeni;
     }
     public String toString(){
-        String Rez="";
-        List<Integer> PuteriOrdonate = new ArrayList<Integer>(this.Termeni.keySet());
-        Collections.sort(PuteriOrdonate,Collections.reverseOrder());
-        int VerFirst=0;
-        for(Integer Putere:PuteriOrdonate){
-                if(Rez!=null&&this.Termeni.get(Putere)>0 && VerFirst!=0){
-                    Rez+="+";
-                    VerFirst++;}
+        String rez="";
+        List<Integer> puteriOrdonate = new ArrayList<Integer>(this.Termeni.keySet());
+        Collections.sort(puteriOrdonate,Collections.reverseOrder());
+        int verFirst=0;
+        for(Integer Putere:puteriOrdonate){
+                if(rez!=null&&this.Termeni.get(Putere)>0 && verFirst!=0){
+                    rez+="+";
+                    verFirst++;}
                 if(Putere!=1) {
                     if(Putere==0 && this.Termeni.get(Putere)!=0)
-                        Rez += this.Termeni.get(Putere);
+                        rez += this.Termeni.get(Putere);
                     else {
                         if (this.Termeni.get(Putere) == 1 && this.Termeni.get(Putere)!=0)
-                            Rez += "x^" + Putere;
+                            rez += "x^" + Putere;
                         if (this.Termeni.get(Putere) == -1 && this.Termeni.get(Putere)!=0)
-                            Rez += "-x^" + Putere;
+                            rez += "-x^" + Putere;
                         if (this.Termeni.get(Putere) != 1 && this.Termeni.get(Putere) != -1 && Putere != 0 && this.Termeni.get(Putere)!=0)
-                            Rez += this.Termeni.get(Putere) + "*x^" + Putere;
+                            rez += this.Termeni.get(Putere) + "*x^" + Putere;
                     }
                 }
                 else{
                     if (this.Termeni.get(Putere) == 1 && this.Termeni.get(Putere)!=0)
-                        Rez += "x";
+                        rez += "x";
                     if (this.Termeni.get(Putere) == -1 && this.Termeni.get(Putere)!=0)
-                        Rez += "-x";
+                        rez += "-x";
                     if (this.Termeni.get(Putere) != 1 && this.Termeni.get(Putere) != -1 && this.Termeni.get(Putere)!=0)
-                        Rez += this.Termeni.get(Putere) + "*x";
+                        rez += this.Termeni.get(Putere) + "*x";
                 }
-                VerFirst++;
+                verFirst++;
             }
-        return Rez;
+        return rez;
     }
 
 
