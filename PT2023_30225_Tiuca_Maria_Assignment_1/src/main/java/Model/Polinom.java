@@ -31,13 +31,17 @@ public class Polinom {
                 if (Coef[0].equals("")) continue;
                 else {
                     char c = Monom.charAt(Monom.length()-1);
-                    if (c == 'x') {
+                    if (c == 'x'&&!(Coef[0].equals("-"))&&!(Coef[0].equals("+"))) {
                         Termeni.put(1,Double.valueOf(Coef[0]));
                     } else {
                         if (Coef[0].equals("-"))
                             Termeni.put(1, (double) -1);
-                        else
-                            Termeni.put(0, Double.valueOf(Coef[0]));
+                        else {
+                            if (Coef[0].equals("+"))
+                                Termeni.put(1, (double) 1);
+                            else
+                                Termeni.put(0, Double.valueOf(Coef[0]));
+                        }
                     }
                 }
             }
@@ -51,30 +55,35 @@ public class Polinom {
     }
     public String toString(){
         String Rez="";
-        for(Integer Putere:this.Termeni.keySet()){
-            if(this.Termeni.get(Putere)!=null){
-                if(Rez!=null&&this.Termeni.get(Putere)>0)
+        List<Integer> PuteriOrdonate = new ArrayList<Integer>(this.Termeni.keySet());
+        Collections.sort(PuteriOrdonate,Collections.reverseOrder());
+        int VerFirst=0;
+        for(Integer Putere:PuteriOrdonate){
+                if(Rez!=null&&this.Termeni.get(Putere)>0 && VerFirst!=0){
                     Rez+="+";
+                    VerFirst++;}
                 if(Putere!=1) {
-                    if (this.Termeni.get(Putere) == 1)
-                        Rez += "x^" + Putere;
-                    if (this.Termeni.get(Putere) == -1)
-                        Rez += "-x^" + Putere;
-                    if (this.Termeni.get(Putere) != 1 && this.Termeni.get(Putere) != -1 && Putere!=0)
-                        Rez += this.Termeni.get(Putere) + "*x^" + Putere;
-                    if(Putere==0)
+                    if(Putere==0 && this.Termeni.get(Putere)!=0)
                         Rez += this.Termeni.get(Putere);
+                    else {
+                        if (this.Termeni.get(Putere) == 1 && this.Termeni.get(Putere)!=0)
+                            Rez += "x^" + Putere;
+                        if (this.Termeni.get(Putere) == -1 && this.Termeni.get(Putere)!=0)
+                            Rez += "-x^" + Putere;
+                        if (this.Termeni.get(Putere) != 1 && this.Termeni.get(Putere) != -1 && Putere != 0 && this.Termeni.get(Putere)!=0)
+                            Rez += this.Termeni.get(Putere) + "*x^" + Putere;
+                    }
                 }
                 else{
-                    if (this.Termeni.get(Putere) == 1)
+                    if (this.Termeni.get(Putere) == 1 && this.Termeni.get(Putere)!=0)
                         Rez += "x";
-                    if (this.Termeni.get(Putere) == -1)
+                    if (this.Termeni.get(Putere) == -1 && this.Termeni.get(Putere)!=0)
                         Rez += "-x";
-                    if (this.Termeni.get(Putere) != 1 && this.Termeni.get(Putere) != -1)
+                    if (this.Termeni.get(Putere) != 1 && this.Termeni.get(Putere) != -1 && this.Termeni.get(Putere)!=0)
                         Rez += this.Termeni.get(Putere) + "*x";
                 }
+                VerFirst++;
             }
-        }
         return Rez;
     }
 
