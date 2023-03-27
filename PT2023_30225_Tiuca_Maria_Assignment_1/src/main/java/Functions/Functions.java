@@ -147,6 +147,8 @@ public class Functions {
         if(detectPolinom==2){
             Rez=Functions.scadere(P2,inmultire(imparte,P1));
         }
+        if(Rez.getTermeni().isEmpty())
+            Rez.getTermeni().put(0,0.0);
         return Rez;
     }
 }

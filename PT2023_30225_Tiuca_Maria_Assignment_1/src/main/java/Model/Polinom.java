@@ -18,7 +18,7 @@ public class Polinom {
             if (coef.length == 4) {
                 Termeni.put(Integer.valueOf(coef[3]), Double.valueOf(coef[0]));
             }
-            if (coef.length == 3) {
+            if (coef.length == 3 ) {
                 if (coef[0].equals("-"))
                     Termeni.put(Integer.valueOf(coef[2]), (double) -1);
                 else
@@ -80,10 +80,15 @@ public class Polinom {
                 }
                 verFirst++;
             }
+        boolean coefAllZero=true;
+        for(Integer Putere:puteriOrdonate){
+            if(!this.Termeni.get(Putere).equals(0.0))
+                coefAllZero=false;
+        }
+        if(coefAllZero)
+            rez+="0.0";
         return rez;
     }
-
-
 }
 
 
