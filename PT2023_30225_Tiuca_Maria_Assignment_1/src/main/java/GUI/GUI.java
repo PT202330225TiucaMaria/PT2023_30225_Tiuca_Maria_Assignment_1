@@ -31,10 +31,6 @@ public class GUI extends JDialog{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(panel1);
         frame.pack();
-        Polinom1=new JLabel();
-        Polinom2=new JLabel();
-        Rezultat=new JLabel();
-        titlu=new JLabel();
         textField1.setVisible(true);
         textField2.setVisible(true);
         textField3.setVisible(true);
