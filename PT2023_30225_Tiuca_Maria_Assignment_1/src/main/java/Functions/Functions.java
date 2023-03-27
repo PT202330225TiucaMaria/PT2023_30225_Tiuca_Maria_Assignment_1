@@ -115,17 +115,9 @@ public class Functions {
         else{
             int detectPolinom=Functions.detectarePolinom(puteriOrdonate1,puteriOrdonate2);
             if(detectPolinom==0||detectPolinom==1){
-                int x=0;
                     while(!puteriOrdonate1.isEmpty() && !puteriOrdonate2.isEmpty() && puteriOrdonate2.get(0)<=puteriOrdonate1.get(0)){
                         Integer putere=puteriOrdonate1.get(0)-puteriOrdonate2.get(0);
-
-//                        double newval=(double)P1.getTermeni().get(PutereP1)/Putere;
-//                        newval=(double)Math.round(newval * 1000d) / 1000d;
-
                         double coeficient=P1.getTermeni().get(puteriOrdonate1.get(0))/P2.getTermeni().get(puteriOrdonate2.get(0));
-                        coeficient=(double)Math.round(coeficient * 1000d) / 1000d;
-                        System.out.println(coeficient);
-                        
                         Rez.getTermeni().put(putere,coeficient);
                         puteriOrdonate1.clear();
                         Polinom Intermediar=new Polinom();
@@ -135,8 +127,6 @@ public class Functions {
                         for(Integer puteriNoi:P1.getTermeni().keySet())
                             puteriOrdonate1.add(puteriNoi);
                         Collections.sort(puteriOrdonate1,Collections.reverseOrder());
-                        if(x==1)
-                            break;
                     }
             }
             if(detectPolinom==2){
