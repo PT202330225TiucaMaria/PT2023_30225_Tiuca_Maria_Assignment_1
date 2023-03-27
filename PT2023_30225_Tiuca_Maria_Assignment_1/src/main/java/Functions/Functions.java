@@ -112,24 +112,28 @@ public class Functions {
         Collections.sort(puteriOrdonate1,Collections.reverseOrder());
         List<Integer> puteriOrdonate2 = new ArrayList<Integer>(P2.getTermeni().keySet());
         Collections.sort(puteriOrdonate2,Collections.reverseOrder());
-        int detectPolinom=Functions.detectarePolinom(puteriOrdonate1,puteriOrdonate2);
-        if(detectPolinom==0||detectPolinom==1){
-                while(!puteriOrdonate1.isEmpty() && !puteriOrdonate2.isEmpty() && puteriOrdonate2.get(0)<=puteriOrdonate1.get(0)){
-                    Integer putere=puteriOrdonate1.get(0)-puteriOrdonate2.get(0);
-                    Double coeficient=P1.getTermeni().get(puteriOrdonate1.get(0))/P2.getTermeni().get(puteriOrdonate2.get(0));
-                    Rez.getTermeni().put(putere,coeficient);
-                    puteriOrdonate1.clear();
-                    Polinom Intermediar=new Polinom();
-                    for(Integer p:P2.getTermeni().keySet())
-                        Intermediar.getTermeni().put(putere+p,coeficient*P2.getTermeni().get(p));
-                    P1=Functions.scadere(P1,Intermediar);
-                    for(Integer puteriNoi:P1.getTermeni().keySet())
-                        puteriOrdonate1.add(puteriNoi);
-                    Collections.sort(puteriOrdonate1,Collections.reverseOrder());
-                }
-        }
-        if(detectPolinom==2){
-           Rez=Functions.impartire(P2,P1);
+        if(!puteriOrdonate2.isEmpty() && P2.getTermeni().get(puteriOrdonate2.get(0))==0.0)
+            Rez.getTermeni().put(-1,0.0);
+        else{
+            int detectPolinom=Functions.detectarePolinom(puteriOrdonate1,puteriOrdonate2);
+            if(detectPolinom==0||detectPolinom==1){
+                    while(!puteriOrdonate1.isEmpty() && !puteriOrdonate2.isEmpty() && puteriOrdonate2.get(0)<=puteriOrdonate1.get(0)){
+                        Integer putere=puteriOrdonate1.get(0)-puteriOrdonate2.get(0);
+                        Double coeficient=P1.getTermeni().get(puteriOrdonate1.get(0))/P2.getTermeni().get(puteriOrdonate2.get(0));
+                        Rez.getTermeni().put(putere,coeficient);
+                        puteriOrdonate1.clear();
+                        Polinom Intermediar=new Polinom();
+                        for(Integer p:P2.getTermeni().keySet())
+                            Intermediar.getTermeni().put(putere+p,coeficient*P2.getTermeni().get(p));
+                        P1=Functions.scadere(P1,Intermediar);
+                        for(Integer puteriNoi:P1.getTermeni().keySet())
+                            puteriOrdonate1.add(puteriNoi);
+                        Collections.sort(puteriOrdonate1,Collections.reverseOrder());
+                    }
+            }
+            if(detectPolinom==2){
+               Rez=Functions.impartire(P2,P1);
+            }
         }
         return Rez;
     }
@@ -141,14 +145,14 @@ public class Functions {
         List<Integer> puteriOrdonate2 = new ArrayList<Integer>(P2.getTermeni().keySet());
         Collections.sort(puteriOrdonate2,Collections.reverseOrder());
         int detectPolinom=Functions.detectarePolinom(puteriOrdonate1,puteriOrdonate2);
-        if(detectPolinom==0||detectPolinom==1){
-            Rez=Functions.scadere(P1,inmultire(imparte,P2));
-        }
-        if(detectPolinom==2){
-            Rez=Functions.scadere(P2,inmultire(imparte,P1));
-        }
-        if(Rez.getTermeni().isEmpty())
-            Rez.getTermeni().put(0,0.0);
+            if (detectPolinom == 0 || detectPolinom == 1) {
+                Rez = Functions.scadere(P1, inmultire(imparte, P2));
+            }
+            if (detectPolinom == 2) {
+                Rez = Functions.scadere(P2, inmultire(imparte, P1));
+            }
+            if (Rez.getTermeni().isEmpty())
+                Rez.getTermeni().put(0, 0.0);
         return Rez;
+        }
     }
-}

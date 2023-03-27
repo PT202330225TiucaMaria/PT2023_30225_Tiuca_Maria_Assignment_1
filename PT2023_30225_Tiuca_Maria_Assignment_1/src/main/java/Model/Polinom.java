@@ -53,40 +53,44 @@ public class Polinom {
         String rez="";
         List<Integer> puteriOrdonate = new ArrayList<Integer>(this.Termeni.keySet());
         Collections.sort(puteriOrdonate,Collections.reverseOrder());
-        int verFirst=0;
-        for(Integer Putere:puteriOrdonate){
-                if(rez!=null&&this.Termeni.get(Putere)>0 && verFirst!=0){
-                    rez+="+";
-                    verFirst++;}
-                if(Putere!=1) {
-                    if(Putere==0 && this.Termeni.get(Putere)!=0)
+        if(this.Termeni.containsKey(-1))
+            rez+="undefined";
+        else {
+            int verFirst = 0;
+            for (Integer Putere : puteriOrdonate) {
+                if (rez != null && this.Termeni.get(Putere) > 0 && verFirst != 0) {
+                    rez += "+";
+                    verFirst++;
+                }
+                if (Putere != 1) {
+                    if (Putere == 0 && this.Termeni.get(Putere) != 0)
                         rez += this.Termeni.get(Putere);
                     else {
-                        if (this.Termeni.get(Putere) == 1 && this.Termeni.get(Putere)!=0)
+                        if (this.Termeni.get(Putere) == 1 && this.Termeni.get(Putere) != 0)
                             rez += "x^" + Putere;
-                        if (this.Termeni.get(Putere) == -1 && this.Termeni.get(Putere)!=0)
+                        if (this.Termeni.get(Putere) == -1 && this.Termeni.get(Putere) != 0)
                             rez += "-x^" + Putere;
-                        if (this.Termeni.get(Putere) != 1 && this.Termeni.get(Putere) != -1 && Putere != 0 && this.Termeni.get(Putere)!=0)
+                        if (this.Termeni.get(Putere) != 1 && this.Termeni.get(Putere) != -1 && Putere != 0 && this.Termeni.get(Putere) != 0)
                             rez += this.Termeni.get(Putere) + "*x^" + Putere;
                     }
-                }
-                else{
-                    if (this.Termeni.get(Putere) == 1 && this.Termeni.get(Putere)!=0)
+                } else {
+                    if (this.Termeni.get(Putere) == 1 && this.Termeni.get(Putere) != 0)
                         rez += "x";
-                    if (this.Termeni.get(Putere) == -1 && this.Termeni.get(Putere)!=0)
+                    if (this.Termeni.get(Putere) == -1 && this.Termeni.get(Putere) != 0)
                         rez += "-x";
-                    if (this.Termeni.get(Putere) != 1 && this.Termeni.get(Putere) != -1 && this.Termeni.get(Putere)!=0)
+                    if (this.Termeni.get(Putere) != 1 && this.Termeni.get(Putere) != -1 && this.Termeni.get(Putere) != 0)
                         rez += this.Termeni.get(Putere) + "*x";
                 }
                 verFirst++;
             }
-        boolean coefAllZero=true;
-        for(Integer Putere:puteriOrdonate){
-            if(!this.Termeni.get(Putere).equals(0.0))
-                coefAllZero=false;
+            boolean coefAllZero = true;
+            for (Integer Putere : puteriOrdonate) {
+                if (!this.Termeni.get(Putere).equals(0.0))
+                    coefAllZero = false;
+            }
+            if (coefAllZero)
+                rez += "0.0";
         }
-        if(coefAllZero)
-            rez+="0.0";
         return rez;
     }
 }
